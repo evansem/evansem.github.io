@@ -7421,6 +7421,7 @@ textarea.form-control-lg {
 .mx-2 {
   margin-right: 0.5rem !important;
   margin-left: 0.5rem !important;
+  font-size: 2em;
 }
 
 .mx-3 {
@@ -11691,12 +11692,12 @@ body {
 }
 .contact-section .social a {
   text-align: center;
-  height: 3rem;
-  width: 3rem;
-  background: rgba(255, 255, 255, 0.1);
+  height: 5rem;
+  width: 5rem;
+  background: rgba(255, 255, 255, 0.13);
   border-radius: 100%;
-  line-height: 3rem;
-  color: rgba(255, 255, 255, 0.3);
+  line-height: 5rem;
+  color: rgba(255, 255, 255, 0.8);
 }
 .contact-section .social a:hover {
   color: rgba(255, 255, 255, 0.5);

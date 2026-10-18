@@ -14,7 +14,7 @@ All copy lives in `src/content/site.ts`.
 
 ## Deploy
 
-`.github/workflows/deploy.yml` builds and publishes `out/` on every push to `main`. In the repo's **Settings → Pages**, set **Source** to **GitHub Actions** once.
+GitHub Pages serves this repo from the root of `main` (the default setting, nothing to configure). On every push to `main`, `.github/workflows/deploy.yml` builds the static export and commits it to the repo root as a `Publish site build` commit, which Pages then serves. The generated files are listed in `.pages-manifest` and replaced on each publish; don't edit them by hand. Pull requests only build.
 
 ## Easter eggs
 

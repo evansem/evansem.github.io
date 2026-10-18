@@ -1,4 +1,9 @@
-name: Deploy to GitHub Pages
+name: Publish site
+
+# evansem.github.io is served by GitHub Pages straight from the root of `main`
+# (the default "Deploy from a branch" setting), so there is nothing to configure:
+# on every push to main this workflow builds the static export and commits it to
+# the repo root, and Pages picks it up. Pull requests only build, as a check.
 
 on:
   push:
@@ -7,12 +12,10 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: publish-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -26,17 +29,27 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
 
-  deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publish build to repo root
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          # Remove the previous build, using the manifest written last time.
+          if [ -f .pages-manifest ]; then
+            xargs -d '\n' -r rm -rf -- < .pages-manifest
+          fi
+          # Never let the build overwrite a source file.
+          for f in $(ls -A out); do
+            if [ -e "$f" ]; then echo "::error::build output '$f' would overwrite a source file"; exit 1; fi
+          done
+          cp -a out/. .
+          ls -A out > .pages-manifest
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Build unchanged, nothing to publish."
+          else
+            git commit -m "Publish site build for ${GITHUB_SHA::7}"
+            git push
+          fi

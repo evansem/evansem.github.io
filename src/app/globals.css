@@ -138,6 +138,28 @@ h2 { font-size: clamp(26px, 4vw, 34px); letter-spacing: -0.02em; margin: 0 0 14p
 .links a:hover { text-decoration: underline; }
 .merge { margin: 0 0 0 28px; padding: 14px 0 34px; font-family: var(--font-mono); font-size: 13px; color: var(--text-faint); }
 
+/* Certifications */
+.certs { display: grid; gap: 12px; }
+.cert {
+  display: flex; gap: 16px; align-items: center; text-decoration: none;
+  background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 14px 18px; transition: border-color .25s, transform .25s, box-shadow .25s;
+}
+.cert:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+.seal {
+  flex: none; width: 48px; height: 48px; display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--accent);
+  clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%);
+  background: color-mix(in srgb, var(--accent) 16%, var(--bg-raised));
+}
+.cert-body { display: grid; gap: 2px; min-width: 0; }
+.cert-tag { font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); }
+.cert-name { font-weight: 600; color: var(--text); }
+.cert-sig { font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim); }
+.cert-sig .verify { color: var(--accent); margin-left: 6px; opacity: 0; transition: opacity .2s; }
+.cert:hover .verify, .cert:focus-visible .verify { opacity: 1; }
+@media (hover: none) { .cert-sig .verify { opacity: 1; } }
+
 /* Contact */
 .contact .cmd { font-family: var(--font-mono); font-size: 15px; color: var(--text-dim); }
 .contact .cmd span { color: var(--ok); }

@@ -1,4 +1,5 @@
 import { about, profile, projects } from "@/content/site";
+import { Certifications } from "@/components/Certifications";
 import { Commit } from "@/components/Commit";
 import { EasterEggs, OpenTerminalHint, Uptime } from "@/components/EasterEggs";
 import { TypedRole } from "@/components/Hero";
@@ -41,6 +42,13 @@ export default function Home() {
           <div id="projects">
             {projects.map((p, i) => <ProjectBranch key={p.slug} project={p} index={i} />)}
           </div>
+
+          <Commit id="certifications" seed="certs" message="ci: add verified credentials" refs={[{ kind: "tag", label: "signed" }]}>
+            <div className="prose">
+              <h2>Certifications</h2>
+            </div>
+            <Certifications />
+          </Commit>
 
           <Commit id="contact" seed="contact" message="chore: open to new opportunities" refs={[{ kind: "tag", label: "v1.0.0" }]}>
             <div className="contact">

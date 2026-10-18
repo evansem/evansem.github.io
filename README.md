@@ -10,7 +10,7 @@ npm run dev      # http://localhost:3000
 npm run build    # static export to out/
 ```
 
-All copy lives in `src/content/site.ts`. Put your CV at `public/cv.pdf`.
+All copy lives in `src/content/site.ts`. Put your CV at `public/cv.pdf` and set `profile.cv` to `"/cv.pdf"`; CV links stay hidden until then.
 
 ## Deploy
 

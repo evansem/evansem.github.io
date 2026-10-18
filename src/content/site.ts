@@ -1,5 +1,5 @@
 // Everything a visitor reads lives here, so updating the site never means touching components.
-// Lines marked TODO are placeholders waiting for real copy.
+// Lines marked TODO hold neutral placeholder copy that reads fine live; swap in the real thing when ready.
 
 export const profile = {
   name: "Evans", // TODO: full display name
@@ -10,7 +10,7 @@ export const profile = {
   github: "https://github.com/evansem",
   linkedin: "", // TODO: optional
   email: "", // TODO: contact email shown on the site
-  cv: "/cv.pdf", // TODO: drop cv.pdf into public/
+  cv: "", // TODO: drop cv.pdf into public/ and set this to "/cv.pdf"; CV links stay hidden while empty
   firstCommit: "2016-01-01", // TODO: drives the "uptime" counter in the footer
 };
 
@@ -31,14 +31,10 @@ export const projects: Project[] = [
     slug: "justeg",
     branch: "feature/justeg",
     name: "JustEg",
-    summary: "TODO: one-line pitch for JustEg.",
-    problem: "TODO: what problem it solves and who it is for.",
-    highlights: [
-      "TODO: a technical decision you are proud of",
-      "TODO: a measurable result or interesting constraint",
-      "TODO: what you learned shipping it",
-    ],
-    stack: ["TODO"],
+    summary: "A side project I designed and built end to end.", // TODO: one-line pitch
+    problem: "A full write-up of the problem, the approach and what I learned is on its way.", // TODO
+    highlights: ["Case study coming soon"], // TODO: technical decisions, results, lessons
+    stack: [], // TODO: e.g. ["TypeScript", "React"]
     links: [],
     accent: "#f5c542",
   },
@@ -46,20 +42,17 @@ export const projects: Project[] = [
     slug: "whatcanieat",
     branch: "feature/whatcanieat",
     name: "WhatCanIEat",
-    summary: "TODO: one-line pitch for WhatCanIEat.",
-    problem: "TODO: what problem it solves and who it is for.",
-    highlights: [
-      "TODO: a technical decision you are proud of",
-      "TODO: a measurable result or interesting constraint",
-      "TODO: what you learned shipping it",
-    ],
-    stack: ["TODO"],
+    summary: "A side project I designed and built end to end.", // TODO: one-line pitch
+    problem: "A full write-up of the problem, the approach and what I learned is on its way.", // TODO
+    highlights: ["Case study coming soon"], // TODO: technical decisions, results, lessons
+    stack: [], // TODO: e.g. ["TypeScript", "React"]
     links: [],
     accent: "#4ade80",
   },
 ];
 
 export const about = [
-  "TODO: two or three sentences about how you like to work.",
-  "TODO: the kind of problems you enjoy.",
+  // TODO: replace with your own words
+  "I like turning fuzzy ideas into small, polished products, and I care about the details users never notice until they're missing.",
+  "Outside of work I keep shipping side projects, a couple of which are just below.",
 ];

@@ -60,9 +60,11 @@ export function ProjectBranch({ project, index }: { project: Project; index: num
         <ul className="diff">
           {project.highlights.map((h) => <li key={h}>{h}</li>)}
         </ul>
-        <div className="stack">
-          {project.stack.map((s) => <span key={s} className="chip">{s}</span>)}
-        </div>
+        {project.stack.length > 0 && (
+          <div className="stack">
+            {project.stack.map((s) => <span key={s} className="chip">{s}</span>)}
+          </div>
+        )}
         {project.links.length > 0 && (
           <div className="links">
             {project.links.map((l) => (

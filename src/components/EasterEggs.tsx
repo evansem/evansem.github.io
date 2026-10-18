@@ -34,7 +34,7 @@ function run(cmd: string, ctx: { close: () => void; forcePush: () => void }): Li
     case "cat": {
       const p = projects.find((x) => x.slug === args[0]?.replace(/\/$/, "").toLowerCase());
       if (!p) return [{ kind: "err", text: `cat: ${args[0] ?? ""}: No such file or directory` }];
-      return out(`${p.name}\n${p.summary}\n\nstack: ${p.stack.join(", ")}`);
+      return out(`${p.name}\n${p.summary}` + (p.stack.length ? `\n\nstack: ${p.stack.join(", ")}` : ""));
     }
     case "git":
       if (args[0] === "log") return out(projects.map((p) => `* Merge branch '${p.branch}'`).concat("* init: hello world").join("\n"));

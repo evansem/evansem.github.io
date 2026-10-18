@@ -16,7 +16,7 @@ export default function Home() {
             <a href="#about">about</a>
             <a href="#projects">projects</a>
             <a href="#contact">contact</a>
-            <a className="cv" href={profile.cv} target="_blank" rel="noreferrer">cv.pdf</a>
+            {profile.cv && <a className="cv" href={profile.cv} target="_blank" rel="noreferrer">cv.pdf</a>}
           </nav>
         </div>
       </header>
@@ -49,7 +49,7 @@ export default function Home() {
               <p className="cmd"><span>$</span> git checkout -b work-together</p>
               <div className="actions">
                 {profile.email && <a className="btn primary" href={`mailto:${profile.email}`}>Say hello</a>}
-                <a className="btn" href={profile.cv} target="_blank" rel="noreferrer">Download CV</a>
+                {profile.cv && <a className="btn" href={profile.cv} target="_blank" rel="noreferrer">Download CV</a>}
                 <a className="btn" href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
                 {profile.linkedin && <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
               </div>

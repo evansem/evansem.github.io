@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { profile, projects } from "@/content/site";
+import { certifications, profile, projects } from "@/content/site";
 
 const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 
@@ -22,6 +22,7 @@ function run(cmd: string, ctx: { close: () => void; forcePush: () => void }): Li
           "  ls                list side projects",
           "  cat <project>     read about a project",
           "  git log           recent history",
+          "  git tag           certifications",
           "  contact           how to reach me",
           "  sudo hire-me      ¯\\_(ツ)_/¯",
           "  clear | exit",
@@ -42,6 +43,7 @@ function run(cmd: string, ctx: { close: () => void; forcePush: () => void }): Li
         ctx.forcePush();
         return out("pushing...");
       }
+      if (args[0] === "tag") return out(certifications.map((c) => `${c.tag.padEnd(22)} ${c.name} (${c.issuer})`).join("\n"));
       if (args[0] === "blame") return out("it was me. it is always me.");
       return [{ kind: "err", text: `git: '${args[0] ?? ""}' is not a git command here. try 'git log'.` }];
     case "contact":

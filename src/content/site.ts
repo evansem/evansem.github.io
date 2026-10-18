@@ -55,3 +55,33 @@ export const about = [
   "I like turning fuzzy ideas into small, polished products, and I care about the details users never notice until they're missing.",
   "Outside of work I keep shipping side projects, a couple of which are just below.",
 ];
+
+export type Certification = { tag: string; name: string; issuer: string; mark: string; href: string; accent: string };
+
+// Rendered as signed git tags; each links to the issuer's public verification page.
+export const certifications: Certification[] = [
+  {
+    tag: "az-ai-engineer",
+    name: "Azure AI Engineer Associate",
+    issuer: "Microsoft",
+    mark: "MS",
+    href: "https://learn.microsoft.com/api/credentials/share/en-us/emanuel-evans/8D83632555218E6A?sharingId=42045F4A976B2289",
+    accent: "#4cc2ff",
+  },
+  {
+    tag: "az-security-engineer",
+    name: "Azure Security Engineer Associate",
+    issuer: "Microsoft",
+    mark: "MS",
+    href: "https://learn.microsoft.com/api/credentials/share/en-us/emanuel-evans/46DD67DDAF309515?sharingId=42045F4A976B2289",
+    accent: "#7c9cff",
+  },
+  {
+    tag: "csslp",
+    name: "Certified Secure Software Lifecycle Professional (CSSLP)",
+    issuer: "ISC2",
+    mark: "ISC²",
+    href: "https://www.credly.com/badges/0a5d2907-0a3f-4af0-a7ef-b93f5cf4c8cd",
+    accent: "#4ade80",
+  },
+];

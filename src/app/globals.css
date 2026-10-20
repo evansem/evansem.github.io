@@ -146,9 +146,8 @@ h2 { font-size: clamp(26px, 4vw, 34px); letter-spacing: -0.02em; margin: 0 0 14p
   padding: 18px; transition: border-color .25s, transform .25s, box-shadow .25s;
 }
 .cert:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
-.badge-slot { display: grid; place-items: center; min-height: 270px; margin-bottom: 10px; }
+.badge-slot { display: grid; place-items: center; min-height: 150px; margin-bottom: 10px; }
 .badge-img { width: 150px; height: 150px; object-fit: contain; }
-.credly { width: 150px; min-height: 270px; border-radius: 10px; overflow: hidden; }
 .cert-tag { font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); }
 .cert-name { font-weight: 600; color: var(--text); line-height: 1.35; }
 .cert-issuer { font-size: 14px; color: var(--text-dim); }

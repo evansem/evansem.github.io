@@ -1,19 +1,18 @@
 import Link from "next/link";
+import { notFound } from "@/content";
 
+// Served as 404.html by GitHub Pages, styled as an uncaught error with a git hint.
 export default function NotFound() {
   return (
     <main className="notfound">
       <pre>
-        <span className="err">{"Uncaught RouteNotFoundError: this page was never committed\n"}</span>
-        {`    at Router.resolve (router.ts:404:1)
-    at Visitor.navigate (curiosity.ts:42:7)
-    at <anonymous>
-
-fatal: pathspec did not match any files known to git.
-hint: maybe it lives on a branch that was never merged.
-
-`}
-        <Link href="/" style={{ color: "var(--main)" }}>$ git checkout main</Link>
+        <span className="err">{notFound.error}</span>
+        {"\n"}
+        {notFound.stackTrace.join("\n")}
+        {"\n\n"}
+        <Link href="/" className="home-link">
+          {notFound.homeLink}
+        </Link>
       </pre>
     </main>
   );

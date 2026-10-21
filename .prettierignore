@@ -1,0 +1,10 @@
+# Generated static export published to the repo root by the deploy workflow
+_next/
+404/
+_not-found/
+*.html
+*.txt
+.pages-manifest
+out/
+.next/
+package-lock.json

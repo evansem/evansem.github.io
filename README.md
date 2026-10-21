@@ -11,7 +11,7 @@ Requires Node.js 22 or later.
 ```sh
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # static export to out/
+npm run build    # static export to out/, formatted for readability
 npm run check    # type-check, lint and formatting check
 npm run format   # apply Prettier formatting
 ```
@@ -45,7 +45,11 @@ src/
     Backdrop.tsx        Animated canvas of drifting commits behind the page
     Toast.tsx           Small status messages
   lib/                  Framework-agnostic helpers and hooks
+scripts/                Post-build formatting of the static export
 ```
+
+After each build, `scripts/format-build-output.mjs` formats the generated HTML, CSS and JavaScript with a
+120-column limit. HTML is only re-indented inside tags, so the text React hydrates is byte-for-byte unchanged.
 
 ## Deploy
 

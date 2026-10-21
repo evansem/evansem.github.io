@@ -23,8 +23,11 @@ export function Terminal({ onClose, onForcePush }: TerminalProps) {
   const scrollArea = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLInputElement>(null);
 
+  // Move focus into the shell, and give it back to whatever had it once the shell closes.
   useEffect(() => {
+    const previouslyFocused = document.activeElement as HTMLElement | null;
     input.current?.focus();
+    return () => previouslyFocused?.focus();
   }, []);
 
   // Keep the newest output in view, like a real terminal.
@@ -89,6 +92,7 @@ export function Terminal({ onClose, onForcePush }: TerminalProps) {
       <motion.div
         className="term"
         role="dialog"
+        aria-modal="true"
         aria-label="terminal"
         onClick={handleWindowClick}
         initial={{ y: 40, opacity: 0 }}

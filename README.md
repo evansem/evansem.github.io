@@ -6,13 +6,14 @@ Built with Next.js (static export), React and Framer Motion.
 
 ## Develop
 
-Requires Node.js 22 or later.
+Requires Node.js 22.18 or later (see `.nvmrc`).
 
 ```sh
 npm install
 npm run dev      # http://localhost:3000
 npm run build    # static export to out/, formatted for readability
-npm run check    # type-check, lint and formatting check
+npm test         # unit tests (Node's built-in test runner)
+npm run check    # type-check, lint, formatting check and tests
 npm run format   # apply Prettier formatting
 ```
 

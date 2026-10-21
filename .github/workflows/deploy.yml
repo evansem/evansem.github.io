@@ -28,6 +28,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run check
       - run: npm run build
 
       - name: Publish build to repo root
@@ -39,7 +40,10 @@ jobs:
           fi
           # Never let the build overwrite a source file.
           for f in $(ls -A out); do
-            if [ -e "$f" ]; then echo "::error::build output '$f' would overwrite a source file"; exit 1; fi
+            if [ -e "$f" ]; then
+              echo "::error::build output '$f' would overwrite a source file"
+              exit 1
+            fi
           done
           cp -a out/. .
           ls -A out > .pages-manifest

@@ -1,80 +1,33 @@
-import { about, profile, projects } from "@/content/site";
-import { Certifications } from "@/components/Certifications";
-import { Commit } from "@/components/Commit";
-import { EasterEggs, OpenTerminalHint, Uptime } from "@/components/EasterEggs";
-import { TypedRole } from "@/components/Hero";
-import { ProjectBranch } from "@/components/ProjectBranch";
-import { Graph } from "@/components/Spine";
+import { EasterEggs } from "@/components/easter-eggs/EasterEggs";
+import { Graph } from "@/components/graph/Graph";
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
+import { About } from "@/components/sections/About";
+import { Certifications } from "@/components/sections/Certifications";
+import { Contact } from "@/components/sections/Contact";
+import { Hero } from "@/components/sections/Hero";
+import { InitialCommit } from "@/components/sections/InitialCommit";
+import { Projects } from "@/components/sections/Projects";
 import { ToastProvider } from "@/components/Toast";
 
+// The page reads top to bottom like `git log --graph`: newest commit first, initial commit last.
 export default function Home() {
   return (
     <ToastProvider>
-      <header className="topbar">
-        <div className="wrap">
-          <span className="prompt"><b>{profile.handle}@main</b>:~$ git log --graph</span>
-          <nav className="nav">
-            <a href="#about">about</a>
-            <a href="#projects">projects</a>
-            <a href="#contact">contact</a>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <main className="wrap">
         <Graph>
-          <Commit seed="head" message="feat: say hello" refs={[{ kind: "head", label: "HEAD -> main" }]} head>
-            <div className="hero">
-              <TypedRole />
-              <h1>Hi, I&apos;m <span className="grad">{profile.name}</span>.</h1>
-              <p className="tagline">{profile.tagline}</p>
-              <OpenTerminalHint />
-            </div>
-          </Commit>
-
-          <Commit id="about" seed="about" message="docs: add README.md">
-            <div className="prose">
-              <h2>About</h2>
-              {about.map((p) => <p key={p}>{p}</p>)}
-            </div>
-          </Commit>
-
-          <div id="projects">
-            {projects.map((p, i) => <ProjectBranch key={p.slug} project={p} index={i} />)}
-          </div>
-
-          <Commit id="certifications" seed="certs" message="ci: add verified credentials" refs={[{ kind: "tag", label: "signed" }]}>
-            <div className="prose">
-              <h2>Certifications</h2>
-            </div>
-            <Certifications />
-          </Commit>
-
-          <Commit id="contact" seed="contact" message="chore: open to new opportunities" refs={[{ kind: "tag", label: "v1.0.0" }]}>
-            <div className="contact">
-              <h2>Let&apos;s talk</h2>
-              <p className="cmd"><span>$</span> git checkout -b work-together</p>
-              <div className="actions">
-                {profile.email && <a className="btn primary" href={`mailto:${profile.email}`}>Say hello</a>}
-                <a className="btn" href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
-                {profile.linkedin && <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
-              </div>
-            </div>
-          </Commit>
-
-          <Commit seed="init" message="init: hello world">
-            <span />
-          </Commit>
+          <Hero />
+          <About />
+          <Projects />
+          <Certifications />
+          <Contact />
+          <InitialCommit />
         </Graph>
       </main>
 
-      <footer>
-        <div className="wrap">
-          <span>© {new Date().getFullYear()} {profile.name} · built with Next.js</span>
-          <span><span className="ok">✓</span> all checks passed · <Uptime /></span>
-        </div>
-      </footer>
-
+      <Footer />
       <EasterEggs />
     </ToastProvider>
   );

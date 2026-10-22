@@ -7,21 +7,20 @@ import type { NavLink, Profile } from "./types";
 export const siteUrl = "https://evansem.github.io";
 
 export const profile: Profile = {
-  name: "Evans", // TODO: full display name
+  name: "Emanuel",
   handle: "evansem",
-  role: "Software Engineer",
-  tagline: "I build small, useful products and ship them end to end.", // TODO
-  location: "New Zealand", // TODO: confirm
+  role: "Application Security Engineer",
+  tagline: "I like solving software problems with a security perspective", 
+  location: "Australia",
   github: "https://github.com/evansem",
-  linkedin: "", // TODO: optional
+  linkedin: "https://www.linkedin.com/in/emanuel-evans/",
   email: "", // TODO: contact email shown on the site
-  firstCommit: "2016-01-01", // TODO: drives the "uptime" counter in the footer
+  firstCommit: "2017-01-01", // Drives the "uptime" counter in the footer
 };
 
 export const about: string[] = [
-  // TODO: replace with your own words
-  "I like turning fuzzy ideas into small, polished products, and I care about the details users never notice until they're missing.",
-  "Outside of work I keep shipping side projects, a couple of which are just below.",
+  "I am interested in how software is built, how it can fail, and how to make it more secure.",
+  "Outside of work, I explore new ideas through side projects, experimenting with software, automation, and security. A few of them are below:",
 ];
 
 export const navigation: NavLink[] = [

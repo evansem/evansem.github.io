@@ -4,7 +4,7 @@ export const sections = {
   hero: {
     commitMessage: "feat: say hello",
     headRef: "HEAD -> main",
-    greeting: "Hi, I'm",
+    greeting: "Hey, my name is",
   },
   about: {
     commitMessage: "docs: add README.md",
@@ -17,7 +17,7 @@ export const sections = {
     verifyLabel: "Verify certification",
   },
   contact: {
-    commitMessage: "chore: open to new opportunities",
+    commitMessage: "chore: keen to make a difference",
     tagRef: "v1.0.0",
     heading: "Let's talk",
     command: "git checkout -b work-together",

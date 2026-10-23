@@ -10,7 +10,7 @@ export const profile: Profile = {
   name: "Emanuel",
   handle: "evansem",
   role: "Application Security Engineer",
-  tagline: "I like solving software problems with a security perspective", 
+  tagline: "I like solving software problems with a security perspective",
   location: "Australia",
   github: "https://github.com/evansem",
   linkedin: "https://www.linkedin.com/in/emanuel-evans/",

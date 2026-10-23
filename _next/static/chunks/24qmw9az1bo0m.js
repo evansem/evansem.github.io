@@ -194,8 +194,8 @@
               b = (0, i.useMemo)(() => y(t), [t]),
               T = c && !x ? [] : b.map(g),
               S = (0, i.useRef)(!0),
-              P = (0, s.f)(() => new Map()),
-              A = (0, i.useRef)(new Set()),
+              A = (0, s.f)(() => new Map()),
+              P = (0, i.useRef)(new Set()),
               [E, k] = (0, i.useState)(b),
               [M, C] = (0, i.useState)(b);
             ((0, r.f)(() => {
@@ -205,7 +205,7 @@
                 S.current = !1;
                 for (let t = 0; t < M.length; t++) {
                   let e = g(M[t]);
-                  T.includes(e) ? (P.delete(e), A.current.delete(e)) : !0 !== P.get(e) && P.set(e, !1);
+                  T.includes(e) ? (A.delete(e), P.current.delete(e)) : !0 !== A.get(e) && A.set(e, !1);
                 }
               }, [M, T.length, T.join("-")]));
             let V = [];
@@ -216,7 +216,7 @@
                 let n = T.indexOf(g(i));
                 -1 === n ? (t.splice(e++, 0, i), V.push(i)) : (e = n + V.length + 1);
               }
-              return (V.every((t) => P.get(g(t))) ? (t = b) : "wait" === u && (t = V), C(y(t)), k(b), null);
+              return (V.every((t) => A.get(g(t))) ? (t = b) : "wait" === u && (t = V), C(y(t)), k(b), null);
             }
             let { forceRender: j } = (0, i.useContext)(n.f);
             return (0, e.jsx)(e.Fragment, {
@@ -235,10 +235,10 @@
                     onExitComplete: n
                       ? void 0
                       : () => {
-                          if (A.current.has(i) || !P.has(i)) return;
-                          (A.current.add(i), P.set(i, !0));
+                          if (P.current.has(i) || !A.has(i)) return;
+                          (P.current.add(i), A.set(i, !0));
                           let t = !0;
-                          (P.forEach((e) => {
+                          (A.forEach((e) => {
                             e || (t = !1);
                           }),
                             t && (j?.(), k([]), c && w?.(), l && l()));
@@ -362,12 +362,12 @@
             alpha: void 0 !== a ? parseFloat(a) : 1,
           };
         },
-        P = { ...g, transform: (t) => Math.round(m(0, 255, t)) },
-        A = {
+        A = { ...g, transform: (t) => Math.round(m(0, 255, t)) },
+        P = {
           test: T("rgb", "red"),
           parse: S("red", "green", "blue"),
           transform: ({ red: t, green: e, blue: i, alpha: n = 1 }) =>
-            "rgba(" + P.transform(t) + ", " + P.transform(e) + ", " + P.transform(i) + ", " + x(y.transform(n)) + ")",
+            "rgba(" + A.transform(t) + ", " + A.transform(e) + ", " + A.transform(i) + ", " + x(y.transform(n)) + ")",
         },
         E = {
           test: T("#"),
@@ -395,7 +395,7 @@
               }
             );
           },
-          transform: A.transform,
+          transform: P.transform,
         },
         k = (t) => ({
           test: (e) => "string" == typeof e && e.endsWith(t) && 1 === e.split(" ").length,
@@ -423,9 +423,9 @@
             ")",
         },
         B = {
-          test: (t) => A.test(t) || E.test(t) || L.test(t),
-          parse: (t) => (A.test(t) ? A.parse(t) : L.test(t) ? L.parse(t) : E.parse(t)),
-          transform: (t) => ("string" == typeof t ? t : t.hasOwnProperty("red") ? A.transform(t) : L.transform(t)),
+          test: (t) => P.test(t) || E.test(t) || L.test(t),
+          parse: (t) => (P.test(t) ? P.parse(t) : L.test(t) ? L.parse(t) : E.parse(t)),
+          transform: (t) => ("string" == typeof t ? t : t.hasOwnProperty("red") ? P.transform(t) : L.transform(t)),
           getAnimatableNone: (t) => {
             let e = B.parse(t);
             return ((e.alpha = 0), B.transform(e));
@@ -676,7 +676,7 @@
         tb = (t) => ((t %= 360) < 0 && (t += 360), t),
         tT = (t) => Math.hypot(t[0], t[1]),
         tS = (t) => Math.hypot(t[4], t[5]),
-        tP = {
+        tA = {
           x: 12,
           y: 13,
           z: 14,
@@ -695,19 +695,19 @@
           skewY: (t) => tv(Math.atan(t[1])),
           skew: (t) => (Math.abs(t[1]) + Math.abs(t[4])) / 2,
         };
-      function tA(t) {
+      function tP(t) {
         return +!!t.includes("scale");
       }
       function tE(t, e) {
         let i, n;
-        if (!t || "none" === t) return tA(e);
+        if (!t || "none" === t) return tP(e);
         let s = t.match(/^matrix3d\(([-\d.e\s,]+)\)$/u);
-        if (s) ((i = tP), (n = s));
+        if (s) ((i = tA), (n = s));
         else {
           let e = t.match(/^matrix\(([-\d.e\s,]+)\)$/u);
           ((i = tw), (n = e));
         }
-        if (!n) return tA(e);
+        if (!n) return tP(e);
         let r = i[e],
           o = n[1].split(",").map(tk);
         return "function" == typeof r ? r(o) : o[r];
@@ -1493,13 +1493,13 @@
       }
       let eT = ["animate", "whileInView", "whileFocus", "whileHover", "whileTap", "whileDrag", "exit"],
         eS = ["initial", ...eT];
-      function eP(t) {
+      function eA(t) {
         if (ew(t.animate)) return !0;
         for (let e = 0; e < eS.length; e++) if (eb(t[eS[e]])) return !0;
         return !1;
       }
-      function eA(t) {
-        return !!(eP(t) || t.variants);
+      function eP(t) {
+        return !!(eA(t) || t.variants);
       }
       var eE = t.i(38544),
         ek = t.i(71164);
@@ -1567,8 +1567,8 @@
             (this.skipAnimationsConfig = s),
             (this.options = a),
             (this.blockInitialAnimation = !!r),
-            (this.isControllingVariants = eP(e)),
-            (this.isVariantNode = eA(e)),
+            (this.isControllingVariants = eA(e)),
+            (this.isVariantNode = eP(e)),
             this.isVariantNode && (this.variantChildren = new Set()),
             (this.manuallyAnimateOnMount = !!(t && t.current)));
           let { willChange: u, ...c } = this.scrapeMotionValuesFromProps(e, {}, this);
@@ -1972,10 +1972,10 @@
           (super(...arguments), (this.type = "svg"), (this.isSVGTag = !1), (this.measureInstanceViewportBox = ti));
         }
         getBaseTargetFromProps(t, e) {
-          return f.has(e) ? (super.getBaseTargetFromProps(t, e) ?? tA(e)) : t[e];
+          return f.has(e) ? (super.getBaseTargetFromProps(t, e) ?? tP(e)) : t[e];
         }
         getDefaultValue(t) {
-          return f.has(t) ? (this.latestValues[t] ?? tA(t)) : void 0;
+          return f.has(t) ? (this.latestValues[t] ?? tP(t)) : void 0;
         }
         readValueFromInstance(t, e) {
           if (f.has(e)) {
@@ -2061,7 +2061,7 @@
         readValueFromInstance(t, e) {
           if (f.has(e))
             return this.projection?.isProjecting
-              ? tA(e)
+              ? tP(e)
               : ((t, e) => {
                   let { transform: i = "none" } = getComputedStyle(t);
                   return tE(i, e);
@@ -2198,8 +2198,8 @@
                       r = n(t, {});
                     for (let t in r) s[t] = ip(r[t]);
                     let { initial: o, animate: a } = t,
-                      l = eP(t),
-                      h = eA(t);
+                      l = eA(t),
+                      h = eP(t);
                     e &&
                       h &&
                       !l &&
@@ -2268,8 +2268,8 @@
       }
       let iT = Symbol.for("motionComponentSymbol"),
         iS = "data-" + eD("framerAppearId"),
-        iP = (0, s.createContext)({});
-      function iA(t) {
+        iA = (0, s.createContext)({});
+      function iP(t) {
         return t && "object" == typeof t && Object.prototype.hasOwnProperty.call(t, "current");
       }
       function iE(t, { forwardMotionProps: e = !1, type: i } = {}, n, o) {
@@ -2297,7 +2297,7 @@
             { isStatic: y, isValidProp: v } = g,
             x = (function (t) {
               let { initial: e, animate: i } = (function (t, e) {
-                if (eP(t)) {
+                if (eA(t)) {
                   let { initial: e, animate: i } = t;
                   return { initial: !1 === e || eb(e) ? e : void 0, animate: eb(i) ? i : void 0 };
                 }
@@ -2342,7 +2342,7 @@
                     })),
                     y.current && g.current && (g.current.manuallyAnimateOnMount = !0)));
                 let v = g.current,
-                  x = (0, s.useContext)(iP);
+                  x = (0, s.useContext)(iA);
                 v &&
                   !v.projection &&
                   r &&
@@ -2369,7 +2369,7 @@
                       t.projection.setOptions({
                         layoutId: s,
                         layout: r,
-                        alwaysMeasureLayout: !!o || (a && iA(a)),
+                        alwaysMeasureLayout: !!o || (a && iP(a)),
                         visualElement: t,
                         animationType: "string" == typeof r ? r : "both",
                         initialPromotionConfig: n,
@@ -2565,7 +2565,7 @@
             s = i * (e * e - n) + n;
           return s < 0 ? 0 : Math.sqrt(s);
         },
-        iI = [E, A, L];
+        iI = [E, P, L];
       function iO(t) {
         let e = iI.find((e) => e.test(t));
         if (!e) return (ta(`'${t}' is not an animatable color. Use the equivalent color code instead.`), !1);
@@ -2597,7 +2597,7 @@
             (s.green = iF(i.green, n.green, t)),
             (s.blue = iF(i.blue, n.blue, t)),
             (s.alpha = eZ(i.alpha, n.alpha, t)),
-            A.transform(s)
+            P.transform(s)
           );
         },
         i$ = new Set(["none", "hidden"]);
@@ -3076,7 +3076,7 @@
       t.s(["f", 0, nb], 55560);
       let nT = (t) => t / 100,
         nS = (t) => Math.round(1e4 * t) / 1e4;
-      class nP extends t7 {
+      class nA extends t7 {
         constructor(t) {
           (super(),
             (this.state = "idle"),
@@ -3255,10 +3255,10 @@
           );
         }
       }
-      let nA = { anticipate: nl, backInOut: na, circInOut: nc };
+      let nP = { anticipate: nl, backInOut: na, circInOut: nc };
       class nE extends eu {
         constructor(t) {
-          ("string" == typeof t.ease && t.ease in nA && (t.ease = nA[t.ease]),
+          ("string" == typeof t.ease && t.ease in nP && (t.ease = nP[t.ease]),
             nw(t),
             super(t),
             void 0 !== t.startTime && !1 !== t.autoplay && (this.startTime = t.startTime),
@@ -3270,7 +3270,7 @@
         sample(t) {
           if (!this.sampler) {
             let { motionValue: t, onUpdate: e, onComplete: i, onPlay: n, onStop: s, element: r, ...o } = this.options;
-            ((this.sampler = new nP({ ...o, autoplay: !1 })), this.sampler.stop());
+            ((this.sampler = new nA({ ...o, autoplay: !1 })), this.sampler.stop());
           }
           return this.sampler.sample(Math.max(0, t)).value;
         }
@@ -3320,7 +3320,7 @@
           return n;
         },
         nL = (t, e) => (t.latestValues ? t.latestValues[e] : t.getValue(e)?.get());
-      class nB extends nP {
+      class nB extends nA {
         constructor(t) {
           let e = t.motionValue.owner.current,
             { driver: i = i_ } = t,
@@ -3827,9 +3827,9 @@
             try {
               s = new nE(i);
             } catch {
-              s = new nP(i);
+              s = new nA(i);
             }
-          } else s = m ? new nB(i) : new nP(i);
+          } else s = m ? new nB(i) : new nA(i);
           (this.pendingTimeline &&
             ((this.stopTimeline = s.attachTimeline(this.pendingTimeline)), (this.pendingTimeline = void 0)),
             (this._animation = s));
@@ -3968,7 +3968,7 @@
                   (u.onUpdate(t), u.onComplete());
                 });
             }
-            return a.isSync ? new nP(u) : new nF(u);
+            return a.isSync ? new nA(u) : new nF(u);
           },
         nW = "u" > typeof window;
       function nz(t, e, { delay: i = 0, transitionOverride: n, type: s } = {}) {
@@ -4496,7 +4496,7 @@
         }
         updateAxis(t, e, i) {
           let { drag: n } = this.getProps();
-          if (!i || !sA(t, n, this.currentDirection)) return;
+          if (!i || !sP(t, n, this.currentDirection)) return;
           let s = this.getAxisMotionValue(t),
             r = this.originPoint[t] + i[t];
           (this.constraints &&
@@ -4518,7 +4518,7 @@
                 ? this.visualElement.projection.measure(!1)
                 : this.visualElement.projection?.layout,
             n = this.constraints;
-          (t && iA(t)
+          (t && iP(t)
             ? this.constraints || (this.constraints = this.resolveRefConstraints())
             : t && i
               ? (this.constraints = (function (t, { top: e, left: i, bottom: n, right: s }) {
@@ -4532,7 +4532,7 @@
               );
             })(e)),
             n !== this.constraints &&
-              !iA(t) &&
+              !iP(t) &&
               i &&
               this.constraints &&
               !this.hasMutatedConstraints &&
@@ -4553,7 +4553,7 @@
         resolveRefConstraints() {
           var t;
           let { dragConstraints: e, onMeasureDragConstraints: i } = this.getProps();
-          if (!e || !iA(e)) return !1;
+          if (!e || !iP(e)) return !1;
           let n = e.current;
           tl();
           let { projection: s } = this.visualElement;
@@ -4587,7 +4587,7 @@
             a = this.constraints || {};
           return Promise.all(
             nq((o) => {
-              if (!sA(o, e, this.currentDirection)) return;
+              if (!sP(o, e, this.currentDirection)) return;
               let l = (a && a[o]) || {};
               (!0 === r || r === o) && (l = { min: 0, max: 0 });
               let h = {
@@ -4624,7 +4624,7 @@
             s = this.visualElement.getTransformPagePoint()?.(n) || n,
             r = this.visualElement.measureViewportBox();
           nq((t) => {
-            if (!sA(t, i, this.currentDirection)) return;
+            if (!sP(t, i, this.currentDirection)) return;
             let e = this.getAxisMotionValue(t),
               { min: n, max: o } = r[t];
             e.set((e.get() || 0) + s[t] - eZ(n, o, 0.5));
@@ -4634,7 +4634,7 @@
           if (!this.visualElement.current) return;
           let { drag: t, dragConstraints: e } = this.getProps(),
             { projection: i } = this.visualElement;
-          if (!iA(e) || !i || !this.constraints) return;
+          if (!iP(e) || !i || !this.constraints) return;
           this.stopAnimation();
           let n = this.constraints,
             s = { x: 0, y: 0 };
@@ -4660,7 +4660,7 @@
             this.resolveConstraints(),
             nq((e) => {
               let i = this.getAxisMotionValue(e);
-              if (!sA(e, t, null) || !i.get()) return;
+              if (!sP(e, t, null) || !i.get()) return;
               let { min: n, max: r } = this.constraints[e];
               i.set(eZ(n, r, s[e]));
             }),
@@ -4682,14 +4682,14 @@
               let r,
                 o,
                 { dragConstraints: a } = this.getProps();
-              iA(a) &&
+              iP(a) &&
                 a.current &&
                 ((this.constraints = this.resolveRefConstraints()),
                 t ||
                   ((i = e),
                   (n = a.current),
-                  (r = ss(i, sP((s = () => this.scalePositionWithinConstraints())))),
-                  (o = ss(n, sP(s))),
+                  (r = ss(i, sA((s = () => this.scalePositionWithinConstraints())))),
+                  (o = ss(n, sA(s))),
                   (t = () => {
                     (r(), o());
                   })));
@@ -4732,7 +4732,7 @@
           };
         }
       }
-      function sP(t) {
+      function sA(t) {
         let e = !0;
         return () => {
           if (e) {
@@ -4742,7 +4742,7 @@
           t();
         };
       }
-      function sA(t, e, i) {
+      function sP(t, e, i) {
         return (!0 === e || e === t) && (null === i || i === t);
       }
       let sE = (t) => (e, i) => {
@@ -4820,7 +4820,7 @@
         return (0, is.jsx)(sV, {
           ...t,
           layoutGroup: n,
-          switchLayoutGroup: (0, sM.useContext)(iP),
+          switchLayoutGroup: (0, sM.useContext)(iA),
           isPresent: e,
           safeToRemove: i,
         });
@@ -5301,8 +5301,8 @@
               n = this.removeElementScroll(i);
             return (
               t && (n = this.removeTransform(n)),
-              rP((e = n).x),
-              rP(e.y),
+              rA((e = n).x),
+              rA(e.y),
               { animationId: this.root.animationId, measuredBox: i, layoutBox: n, latestValues: {}, source: this.id }
             );
           }
@@ -5680,7 +5680,7 @@
                 this !== t &&
                 this.layout &&
                 i &&
-                rA(this.options.animationType, this.layout.layoutBox, i.layoutBox)
+                rP(this.options.animationType, this.layout.layoutBox, i.layoutBox)
               ) {
                 s = this.target || ti();
                 let e = nQ(this.layout.layoutBox.x);
@@ -5858,7 +5858,7 @@
             let t = "x" === s ? "y" : "x";
             s$(r ? e.measuredBox[t] : e.layoutBox[t], i[t]);
           } else
-            rA(s, e.layoutBox, i) &&
+            rP(s, e.layoutBox, i) &&
               nq((n) => {
                 let s = r ? e.measuredBox[n] : e.layoutBox[n],
                   o = nQ(i[n]);
@@ -5974,10 +5974,10 @@
       let rb = { duration: 0.45, ease: [0.4, 0, 0.1, 1] },
         rT = (t) => "u" > typeof navigator && navigator.userAgent && navigator.userAgent.toLowerCase().includes(t),
         rS = rT("applewebkit/") && !rT("chrome/") ? Math.round : tL;
-      function rP(t) {
+      function rA(t) {
         ((t.min = rS(t.min)), (t.max = rS(t.max)));
       }
-      function rA(t, e, i) {
+      function rP(t, e, i) {
         return "position" === t || ("preserve-aspect" === t && !(0.2 >= Math.abs(sQ(e) - sQ(i))));
       }
       function rE(t) {
@@ -6117,8 +6117,8 @@
                               let S =
                                   ((s = g.prevProp),
                                   "string" == typeof (m = x) ? m !== s : !!Array.isArray(m) && !nX(m, s)),
-                                P = S || (w && ((b && !T) || n > p)),
-                                A = !1,
+                                A = S || (w && ((b && !T) || n > p)),
+                                P = !1,
                                 E = Array.isArray(x) ? x : [x],
                                 k = {};
                               if (!1 !== b)
@@ -6134,7 +6134,7 @@
                                   s = Array.isArray(i) && Array.isArray(n) ? !nX(i, n) || S : i !== n;
                                 if (s && null == i) c.add(e);
                                 else if (s || (void 0 !== i && c.has(e))) {
-                                  ((P = !0), c.delete(e) && (A = !0), (g.needsAnimating[e] = !0));
+                                  ((A = !0), c.delete(e) && (P = !0), (g.needsAnimating[e] = !0));
                                   let i = t.getValue(e);
                                   i && (i.liveStyle = !1);
                                 } else g.protectedKeys[e] = !0;
@@ -6143,7 +6143,7 @@
                                 ((g.prevProp = x),
                                 (g.prevResolvedValues = k),
                                 g.isActive && (d = { ...d, ...k }),
-                                P && (!(T && S) || A))
+                                A && (!(T && S) || P))
                               )
                                 for (let i of E) {
                                   let n = { type: e };
@@ -7091,8 +7091,8 @@
         [0, 0],
         [1, 1],
       ];
-      var P = t.i(72846);
-      let A = new WeakMap(),
+      var A = t.i(72846);
+      let P = new WeakMap(),
         E = new WeakMap(),
         k = new WeakMap(),
         M = new WeakMap(),
@@ -7116,7 +7116,7 @@
                       let i = { x: 0, y: 0 },
                         n = t;
                       for (; n && n !== e;)
-                        if ((0, P.f)(n)) ((i.x += n.offsetLeft), (i.y += n.offsetTop), (n = n.offsetParent));
+                        if ((0, A.f)(n)) ((i.x += n.offsetLeft), (i.y += n.offsetTop), (n = n.offsetParent));
                         else if ("svg" === n.tagName) {
                           let t = n.getBoundingClientRect(),
                             e = (n = n.parentElement).getBoundingClientRect();
@@ -7167,7 +7167,7 @@
             notify: (t) => e(r ? i : t),
           };
         })(e, t, g(), n);
-        if ((s.add(r), !A.has(e))) {
+        if ((s.add(r), !P.has(e))) {
           let t = g(),
             i = () => {
               var i = c.f.timestamp;
@@ -7209,7 +7209,7 @@
               for (let e of s) e.notify(t);
             },
             r = () => u.y.read(i);
-          A.set(e, r);
+          P.set(e, r);
           let o = C(e);
           (window.addEventListener("resize", r),
             e !== document.documentElement && E.set(e, (0, h.f)(e, r)),
@@ -7217,7 +7217,7 @@
             r());
         }
         if (i && !M.has(e)) {
-          let t = A.get(e),
+          let t = P.get(e),
             i = { width: e.scrollWidth, height: e.scrollHeight },
             n = u.y.read(() => {
               let n = e.scrollWidth,
@@ -7226,7 +7226,7 @@
             }, !0);
           M.set(e, n);
         }
-        let o = A.get(e);
+        let o = P.get(e);
         return (
           u.y.read(o, !1, !0),
           () => {
@@ -7234,8 +7234,8 @@
             let t = k.get(e);
             if (!t || (t.delete(r), t.size)) return;
             k.delete(e);
-            let i = A.get(e);
-            (A.delete(e),
+            let i = P.get(e);
+            (P.delete(e),
               i && (C(e).removeEventListener("scroll", i), E.get(e)?.(), window.removeEventListener("resize", i)));
             let n = M.get(e);
             n && ((0, u.Y)(n), M.delete(e));
@@ -7943,7 +7943,7 @@
               tag: "csslp",
               name: "Certified Secure Software Lifecycle Professional (CSSLP)",
               issuer: "ISC2",
-              badge: "https://images.credly.com/size/340x340/images/2ca15936-bd13-4db9-86cb-8da72a71d701/image.png",
+              badge: "/badges/csslp.png",
               href: "https://www.credly.com/badges/0a5d2907-0a3f-4af0-a7ef-b93f5cf4c8cd",
               accent: "#4ade80",
             },
@@ -7956,7 +7956,7 @@
             "f",
             0,
             {
-              hero: { commitMessage: "feat: say hello", headRef: "HEAD -> main", greeting: "Hi, I'm" },
+              hero: { commitMessage: "feat: say hello", headRef: "HEAD -> main", greeting: "Hey, my name is" },
               about: { commitMessage: "docs: add README.md", heading: "About" },
               certifications: {
                 commitMessage: "ci: add verified credentials",
@@ -7965,7 +7965,7 @@
                 verifyLabel: "Verify certification",
               },
               contact: {
-                commitMessage: "chore: open to new opportunities",
+                commitMessage: "chore: keen to make a difference",
                 tagRef: "v1.0.0",
                 heading: "Let's talk",
                 command: "git checkout -b work-together",
@@ -8035,15 +8035,15 @@ Access granted. Opening a conversation is the next step: ${t}`,
         "f",
         0,
         {
-          name: "Evans",
+          name: "Emanuel",
           handle: "evansem",
-          role: "Software Engineer",
-          tagline: "I build small, useful products and ship them end to end.",
-          location: "New Zealand",
+          role: "Application Security Engineer",
+          tagline: "I like solving software problems with a security perspective",
+          location: "Australia",
           github: "https://github.com/evansem",
-          linkedin: "",
+          linkedin: "https://www.linkedin.com/in/emanuel-evans/",
           email: "",
-          firstCommit: "2016-01-01",
+          firstCommit: "2017-01-01",
         },
       ]);
     },

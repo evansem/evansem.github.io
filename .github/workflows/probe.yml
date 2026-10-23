@@ -2,15 +2,21 @@ name: badge probe
 on:
   push:
     branches: [claude/tmp-badge-probe]
+permissions:
+  contents: write
 jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: pip install -q pillow
-      - run: curl -sSfL "https://images.credly.com/size/340x340/images/2ca15936-bd13-4db9-86cb-8da72a71d701/image.png" -o badge.png && file badge.png
+      - run: curl -sSfL "https://images.credly.com/size/340x340/images/2ca15936-bd13-4db9-86cb-8da72a71d701/image.png" -o badge.png && mkdir -p out && cp badge.png out/original.png
       - name: analyse and fill interior
         shell: python
         run: |
+          import sys, os
+          os.makedirs("out", exist_ok=True)
+          sys.stdout = open("out/report.txt", "w")
           from PIL import Image
           from collections import deque
           import base64, io
@@ -48,5 +54,8 @@ jobs:
           # coarse alpha map, 34x34
           for y in range(0, h, 10):
               print("".join("#" if px[x,y][3]>200 else ("+" if px[x,y][3]>20 else ".") for x in range(0, w, 10)))
-          buf = io.BytesIO(); res.save(buf, "PNG", optimize=True)
-          print("B64START"); print(base64.b64encode(buf.getvalue()).decode()); print("B64END")
+          res.save("out/filled.png", optimize=True)
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add out && git commit -m "probe output" && git push

@@ -27,8 +27,9 @@ export const certifications: Certification[] = [
     tag: "csslp",
     name: "Certified Secure Software Lifecycle Professional (CSSLP)",
     issuer: "ISC2",
-    badge:
-      "https://images.credly.com/size/340x340/images/2ca15936-bd13-4db9-86cb-8da72a71d701/image.png",
+    // Credly's badge with white filled in only inside the coloured square, so the black
+    // lettering stays readable on the dark page. Self-hosted in public/badges.
+    badge: "/badges/csslp.png",
     href: "https://www.credly.com/badges/0a5d2907-0a3f-4af0-a7ef-b93f5cf4c8cd",
     accent: "#4ade80",
   },
